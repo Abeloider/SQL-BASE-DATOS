@@ -175,12 +175,13 @@ ORDER BY R.rol;
 -- S1.12. [F] Etiquetas asociadas a las series estadounidenses ('Estados Unidos') de género ‘Drama’,
 -- ordenado por identificador de serie. (serie, titulo, etiqueta).
 
-SELECT serie, titulo, etiqueta FROM
+SELECT serie, titulo, etiqueta
 FROM serie S
 join etiquetado E
     on E.serie = S.serie_id
 WHERE S.nacionalidad = 'Estados Unidos' and S.genero = 'Drama'
-ORDER S.serie_id; 
+ORDER S.serie_id;
+
 
 
 -- S1.13. [F] Intérpretes británicos ('Reino Unido') que han participado en alguna serie con un papel
@@ -304,7 +305,7 @@ WHERE f_ultimo_acceso < TO_DATE ('01/02/2025','dd-mm/yyyyy')
 -- al 15/01/2023, tales que ese mismo usuario no la está viendo. Ordenado por los
 -- identificadores de serie y de usuario. Hay que usar operadores de conjuntos. (serie, usuario).
 
-SELECT S.serie_id, U.usuario_id
+SELECT DISTINCT S.serie_id, U.usuario_id
 FROM serie S
 JOIN interes I ON I.serie_id = S.serie_id
 JOIN usuario U ON I.usuario_id = U.usuario_id
