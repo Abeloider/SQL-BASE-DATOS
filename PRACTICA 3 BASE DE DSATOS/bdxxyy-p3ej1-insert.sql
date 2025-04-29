@@ -103,13 +103,13 @@ INSERT INTO chat_grupo (codigo, nombre, fecha_creacion, administrador, msj_ancla
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00100', TO_DATE('2024-01-01 12:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00104', TO_DATE('2024-01-02 10:30', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', 'MSJ00103'); 
+  VALUES ('MSJ00103', TO_DATE('2024-01-02 10:21', 'YYYY-MM-DD HH24:MI'), 'NO', 600000010, 'C001', NULL);
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
+  VALUES ('MSJ00104', TO_DATE('2024-01-02 10:30', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', 'MSJ00103');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00101', TO_DATE('2024-01-02 10:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000001, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00102', TO_DATE('2024-01-02 10:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000017, 'C001', NULL);
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00103', TO_DATE('2024-01-02 10:21', 'YYYY-MM-DD HH24:MI'), 'NO', 600000010, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00105', TO_DATE('2024-01-02 10:40', 'YYYY-MM-DD HH24:MI'), 'NO', 600000008, 'C001', NULL);  
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -128,12 +128,12 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
   VALUES ('MSJ00204', TO_DATE('2024-04-13 01:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000014, 'C002', NULL);  
 
 -- Chat 3 Familia  
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original) 
+  VALUES ('MSJ00301', TO_DATE('2025-03-22 08:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000011, 'C003', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00304', TO_DATE('2025-03-23 12:55', 'YYYY-MM-DD HH24:MI'), 'SI', 600000013, 'C003', 'MSJ00301');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00300', TO_DATE('2017-02-02 10:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000002, 'C003', NULL);
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original) 
-  VALUES ('MSJ00301', TO_DATE('2025-03-22 08:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000011, 'C003', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00302', TO_DATE('2025-03-22 09:45', 'YYYY-MM-DD HH24:MI'), 'SI', 600000002, 'C003', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -143,11 +143,11 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00400', TO_DATE('2023-09-18 08:22', 'YYYY-MM-DD HH24:MI'), 'NO', 600000004, 'C004', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00404', TO_DATE('2024-04-01 20:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', 'MSJ00402');
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00401', TO_DATE('2024-04-01 15:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00402', TO_DATE('2024-04-01 16:35', 'YYYY-MM-DD HH24:MI'), 'SI', 600000001, 'C004', NULL);
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
+  VALUES ('MSJ00404', TO_DATE('2024-04-01 20:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', 'MSJ00402');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00403', TO_DATE('2024-04-01 19:05', 'YYYY-MM-DD HH24:MI'), 'NO', 600000004, 'C004', 'MSJ00401');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -161,11 +161,11 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00501', TO_DATE('2024-05-25 15:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000004, 'C005', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
+  VALUES ('MSJ00503', TO_DATE('2024-05-26 19:05', 'YYYY-MM-DD HH24:MI'), 'NO', 600000013, 'C005', NULL);
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00504', TO_DATE('2024-05-26 20:15', 'YYYY-MM-DD HH24:MI'), 'SI', 600000019, 'C005', 'MSJ00503');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00502', TO_DATE('2024-05-26 12:35', 'YYYY-MM-DD HH24:MI'), 'SI', 600000006, 'C005', NULL);
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00503', TO_DATE('2024-05-26 19:05', 'YYYY-MM-DD HH24:MI'), 'NO', 600000013, 'C005', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00505', TO_DATE('2024-05-27 21:30', 'YYYY-MM-DD HH24:MI'), 'NO', 600000013, 'C005', NULL);  
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -222,9 +222,9 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01002', TO_DATE('2025-02-08 22:46', 'YYYY-MM-DD HH24:MI'), 'NO', 600000007, 'C010', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ01008', TO_DATE('2025-02-08 23:45', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C010', 'MSJ01003');
+  VALUES ('MSJ01003', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'SI', 600000004, 'C010', NULL);  
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ01003', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'SI', 600000004, 'C010', NULL);
+  VALUES ('MSJ01008', TO_DATE('2025-02-08 23:45', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C010', 'MSJ01003');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01004', TO_DATE('2025-02-08 22:55', 'YYYY-MM-DD HH24:MI'), 'NO', 600000019, 'C010', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -244,6 +244,8 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01101', TO_DATE('2025-02-08 22:45', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
+  VALUES ('MSJ01105', TO_DATE('2025-02-08 23:10', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', NULL);
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01107', TO_DATE('2025-02-08 23:40', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C011', 'MSJ01105');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01108', TO_DATE('2025-02-08 23:45', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', 'MSJ01105');
@@ -253,8 +255,6 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
   VALUES ('MSJ01103', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01104', TO_DATE('2025-02-08 22:55', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C011', NULL);
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ01105', TO_DATE('2025-02-08 23:10', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01106', TO_DATE('2025-02-08 23:35', 'YYYY-MM-DD HH24:MI'), 'SI', 600000006, 'C011', NULL);
 
