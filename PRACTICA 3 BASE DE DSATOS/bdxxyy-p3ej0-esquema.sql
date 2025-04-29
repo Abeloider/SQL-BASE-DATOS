@@ -80,15 +80,15 @@ CREATE TABLE CHAT_GRUPO(
 
 CREATE TABLE MENSAJE(
     mensaje_id      CHAR(10) NOT NULL,
-    diahora         CHAR(10)NOT NULL,
-    reenviado       CHAR(1) NOT NULL,
+    diahora         DATE     NOT NULL,
+    reenviado       CHAR(10) NOT NULL,
     usuario         NUMBER(9) NOT NULL,
     chat_grupo      CHAR(4) NOT NULL,
     msj_original    CHAR(1),
     PRIMARY KEY(mensaje_id),
-    CONSTRAINT msg_original FOREIGN KEY (msj_original) REFERENCES MENSAJE(msj_original),
+    CONSTRAINT msg_original FOREIGN KEY (msj_original) REFERENCES MENSAJE(mensaje_id),
         --ON UPDATE CASCADE --ON DELETE NO ACION
-    CONSTRAINT id_chat FOREIGN KEY (chat_grupo) REFERENCES CHAT_GRUPO(chat_grupo),
+    CONSTRAINT id_chat FOREIGN KEY (chat_grupo) REFERENCES CHAT_GRUPO(codigo),
         --ON UPDATE CASCADE --ON DELETE CASCADE
     CONSTRAINT tlf_usuario FOREIGN KEY (usuario) REFERENCES MIUSUARIO(telefono)
         --ON UPDATE CASCADE --ON DELETE NO ACION
@@ -110,13 +110,3 @@ CREATE TABLE PARTICIPACION (
       -- ON DELETE CASCADE
       -- ON UPDATE CASCADE
 );
-
-
-
-
-
-
-
-
-
-
