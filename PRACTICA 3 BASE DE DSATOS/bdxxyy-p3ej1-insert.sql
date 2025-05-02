@@ -22,6 +22,12 @@ SCRIPT PARA ESTUDIANTES
    Si surgen problemas con el ciclo referencial,
    solucionalo de igual manera que en la insercion
 ***/
+DELETE FROM miusuario;
+DELETE FROM chat_grupo;
+DELETE FROM contacto;
+DELETE FROM email_contacto;
+DELETE FROM mensaje;
+DELETE FROM participacion;
 
 --------------------------------------------------------
 -- Usuarios --> TABLA MIUSUARIO (en la P1 se llamaba USUARIO)
@@ -72,6 +78,7 @@ INSERT INTO miusuario (telefono,nombre,fecha_registro,idioma,descripcion)
 --------------------------------------------------------
 -- Chats de grupo
 -- no se da valor a la columna "miembros", que es calculada
+ALTER TABLE chat_grupo DROP CONSTRAINT fk_msj_anclado;
 
 INSERT INTO chat_grupo (codigo, nombre, fecha_creacion, administrador, msj_anclado)
   VALUES ('C001', 'Amigos', TO_DATE('2024-01-01', 'YYYY-MM-DD'), 600000001, 'MSJ00100');

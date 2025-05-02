@@ -258,6 +258,7 @@ GROUP BY serie;
 -- y para las que no están siendo vistas por nadie debe aparecer el valor 0 en la columna
 -- n_usuarios. Ordenado por identificador de serie. (serie_id, n_usuarios).
 
+
 -- S2.33. [M/D] Número de series que está viendo cada usuario, en orden descendente por el
 -- número de series. Si un usuario está viendo diferentes capítulos de la misma serie, solo debe
 -- ser considerada una vez. Deben mostrarse todos los usuarios; para los que no están viendo
