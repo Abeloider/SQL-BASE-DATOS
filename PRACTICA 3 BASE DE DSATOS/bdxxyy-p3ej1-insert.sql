@@ -5,8 +5,8 @@ Convocatoria: junio
 
 Practica: P3. Definicion y Modificacion de Datos en SQL
 
-Equipo de practicas: bdxxyy
- Integrante 1:
+Equipo de practicas: 
+ Integrante 1: 
  Integrante 2: 
 
 SCRIPT PARA ESTUDIANTES
@@ -16,21 +16,31 @@ SCRIPT PARA ESTUDIANTES
 
 -- Borrado de tablas, para ejecucion repetida
 
-/***
-   inserta aqui sentencias DELETE de las tablas
-   en el orden inverso al de insercion
-   Si surgen problemas con el ciclo referencial,
-   solucionalo de igual manera que en la insercion
-***/
-DELETE FROM miusuario;
-DELETE FROM chat_grupo;
-DELETE FROM contacto;
-DELETE FROM email_contacto;
-DELETE FROM mensaje;
-DELETE FROM participacion;
+DELETE FROM PARTICIPACION;
+DELETE FROM EMAIL_CONTACTO;
+DELETE FROM CONTACTO;
+ALTER TABLE chat_grupo
+    DISABLE CONSTRAINT chat_grupo_fk
+;
+ALTER TABLE mensaje
+    DISABLE CONSTRAINT mensaje_grupo_fk
+;
+DELETE FROM MENSAJE;
+ALTER TABLE mensaje
+    ENABLE CONSTRAINT mensaje_grupo_fk
+;
+DELETE FROM CHAT_GRUPO;
+ALTER TABLE chat_grupo 
+    ENABLE CONSTRAINT chat_grupo_fk
+;
+DELETE FROM MIUSUARIO;
+
+
+
 
 --------------------------------------------------------
 -- Usuarios --> TABLA MIUSUARIO (en la P1 se llamaba USUARIO)
+
 
 INSERT INTO miusuario (telefono,nombre,fecha_registro,idioma,descripcion)
   VALUES ('600000001','Berto Nunes',TO_DATE('15/01/2020','DD/MM/YYYY'),'Espanol','Amante de la tecnologia');
@@ -75,10 +85,14 @@ INSERT INTO miusuario (telefono,nombre,fecha_registro,idioma,descripcion)
 INSERT INTO miusuario (telefono,nombre,fecha_registro,idioma,descripcion)
   VALUES ('600000021','Hans Salt',TO_DATE('10/03/2025','DD/MM/YYYY'),'Aleman', NULL);
 
+
+-------------------------------------------------------
 --------------------------------------------------------
 -- Chats de grupo
 -- no se da valor a la columna "miembros", que es calculada
-ALTER TABLE chat_grupo DROP CONSTRAINT fk_msj_anclado;
+ALTER TABLE chat_grupo
+DISABLE CONSTRAINT chat_ms_fk; 
+
 
 INSERT INTO chat_grupo (codigo, nombre, fecha_creacion, administrador, msj_anclado)
   VALUES ('C001', 'Amigos', TO_DATE('2024-01-01', 'YYYY-MM-DD'), 600000001, 'MSJ00100');
@@ -106,17 +120,21 @@ INSERT INTO chat_grupo (codigo, nombre, fecha_creacion, administrador, msj_ancla
 
 --------------------------------------------------------
 -- Mensajes de chats
--- Chat 1 Amigos
+-- Chat 1 Amigos 
+ALTER TABLE mensaje
+DISABLE CONSTRAINT mensaje_grupo_fk;
+
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00100', TO_DATE('2024-01-01 12:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00103', TO_DATE('2024-01-02 10:21', 'YYYY-MM-DD HH24:MI'), 'NO', 600000010, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00104', TO_DATE('2024-01-02 10:30', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', 'MSJ00103');
+  VALUES ('MSJ00104', TO_DATE('2024-01-02 10:30', 'YYYY-MM-DD HH24:MI'), 'NO', 600000005, 'C001', 'MSJ00103'); 
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00101', TO_DATE('2024-01-02 10:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000001, 'C001', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00102', TO_DATE('2024-01-02 10:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000017, 'C001', NULL);
+
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00105', TO_DATE('2024-01-02 10:40', 'YYYY-MM-DD HH24:MI'), 'NO', 600000008, 'C001', NULL);  
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -150,11 +168,12 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00400', TO_DATE('2023-09-18 08:22', 'YYYY-MM-DD HH24:MI'), 'NO', 600000004, 'C004', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ00401', TO_DATE('2024-04-01 15:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', NULL);
-INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00402', TO_DATE('2024-04-01 16:35', 'YYYY-MM-DD HH24:MI'), 'SI', 600000001, 'C004', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00404', TO_DATE('2024-04-01 20:15', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', 'MSJ00402');
+INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
+  VALUES ('MSJ00401', TO_DATE('2024-04-01 15:20', 'YYYY-MM-DD HH24:MI'), 'NO', 600000009, 'C004', NULL);
+
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ00403', TO_DATE('2024-04-01 19:05', 'YYYY-MM-DD HH24:MI'), 'NO', 600000004, 'C004', 'MSJ00401');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -229,7 +248,7 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01002', TO_DATE('2025-02-08 22:46', 'YYYY-MM-DD HH24:MI'), 'NO', 600000007, 'C010', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
-  VALUES ('MSJ01003', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'SI', 600000004, 'C010', NULL);  
+  VALUES ('MSJ01003', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'SI', 600000004, 'C010', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01008', TO_DATE('2025-02-08 23:45', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C010', 'MSJ01003');
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
@@ -262,37 +281,138 @@ INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_or
   VALUES ('MSJ01103', TO_DATE('2025-02-08 22:47', 'YYYY-MM-DD HH24:MI'), 'NO', 600000018, 'C011', NULL);
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01104', TO_DATE('2025-02-08 22:55', 'YYYY-MM-DD HH24:MI'), 'NO', 600000015, 'C011', NULL);
+
 INSERT INTO mensaje (mensaje_id, diahora, reenviado, usuario, chat_grupo, msj_original)
   VALUES ('MSJ01106', TO_DATE('2025-02-08 23:35', 'YYYY-MM-DD HH24:MI'), 'SI', 600000006, 'C011', NULL);
 
---------------------------------------------------------  
--- Emails de contactos
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000004, 600000002, 'hana@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000013, 600000007, 'cleto@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000002, 600000013, 'yinuo@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000013, 600000006, 'siena@email.com');
 
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000014, 600000006, 'siena@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000013, 600000014, 'lulu@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000007, 600000013, 'yinuo@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000007, 600000006, 'siena@email.com');
+ALTER TABLE chat_grupo
+ENABLE CONSTRAINT chat_ms_fk; 
 
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000005, 600000008, 'artix@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000015, 600000002, 'hana@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000012, 600000002, 'hana@email.com');
-INSERT INTO email_contacto (usuario, contacto, email)
-  VALUES (600000007, 600000002, 'hana@email.com');
+ALTER TABLE mensaje
+ENABLE CONSTRAINT mensaje_grupo_fk;
+
+
+--------------------------------------------------------
+-- Participacion de usuarios en chats
+ 
+
+-- Chat 1 Amigos
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000001, 'C001', TO_DATE('2024-01-01 10:20', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000005, 'C001', TO_DATE('2024-01-01 10:21', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000017, 'C001', TO_DATE('2024-01-01 10:22', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000010, 'C001', TO_DATE('2024-01-01 10:23', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000008, 'C001', TO_DATE('2024-01-01 10:24', 'YYYY-MM-DD HH24:MI'));  
+  
+-- chat 2 Trabajo
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000013, 'C002', TO_DATE('2024-04-10 17:10', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000007, 'C002', TO_DATE('2024-04-10 17:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000014, 'C002', TO_DATE('2024-04-11 10:25', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000006, 'C002', TO_DATE('2024-04-11 10:30', 'YYYY-MM-DD HH24:MI'));
+
+-- chat 3 Familia  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000002, 'C003', TO_DATE('2017-02-01 14:50', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000011, 'C003', TO_DATE('2017-02-01 15:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000013, 'C003', TO_DATE('2017-02-01 15:40', 'YYYY-MM-DD HH24:MI'));
+  
+-- chat 4 Family Group  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000004, 'C004', TO_DATE('2020-01-16 11:30', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000001, 'C004', TO_DATE('2020-01-16 12:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000009, 'C004', TO_DATE('2020-01-16 12:35', 'YYYY-MM-DD HH24:MI'));
+  
+-- chat 5 Vecinos  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000004, 'C005', TO_DATE('2024-05-25 10:50', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000019, 'C005', TO_DATE('2024-05-25 10:55', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000013, 'C005', TO_DATE('2024-05-25 11:10', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000006, 'C005', TO_DATE('2024-05-26 11:35', 'YYYY-MM-DD HH24:MI'));
+  
+-- chat 6 The colegas
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000006, 'C006', TO_DATE('2024-06-30 17:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000009, 'C006', TO_DATE('2024-06-30 17:17', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000013, 'C006', TO_DATE('2024-06-30 17:19', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000020, 'C006', TO_DATE('2024-06-30 17:20', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000002, 'C006', TO_DATE('2024-06-30 17:25', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000012, 'C006', TO_DATE('2024-06-30 17:26', 'YYYY-MM-DD HH24:MI'));
+ 
+  
+-- chat 7 Clase  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000008, 'C007', TO_DATE('2025-01-05 09:45', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000001, 'C007', TO_DATE('2025-01-05 10:00', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000015, 'C007', TO_DATE('2025-01-05 10:25', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000011, 'C007', TO_DATE('2025-01-05 10:45', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000016, 'C007', TO_DATE('2025-01-05 10:48', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000018, 'C007', TO_DATE('2025-01-05 10:59', 'YYYY-MM-DD HH24:MI'));
+
+-- chat 8 Hermanos
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000009, 'C008', TO_DATE('2018-05-25 10:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000007, 'C008', TO_DATE('2018-05-25 10:20', 'YYYY-MM-DD HH24:MI'));
+
+-- chat 9 Lxs mejores  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000016, 'C009', TO_DATE('2017-05-30 10:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000018, 'C009', TO_DATE('2017-05-30 10:16', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000008, 'C009', TO_DATE('2017-05-30 10:17', 'YYYY-MM-DD HH24:MI'));
+
+-- chat 10 Grupo clase  
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000002, 'C010', TO_DATE('2024-09-05 16:05', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000019, 'C010', TO_DATE('2024-09-05 16:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000015, 'C010', TO_DATE('2024-09-05 16:25', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000012, 'C010', TO_DATE('2024-09-05 17:00', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000007, 'C010', TO_DATE('2024-09-05 17:10', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000004, 'C010', TO_DATE('2024-09-05 18:15', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000021, 'C010', TO_DATE('2024-09-05 18:20', 'YYYY-MM-DD HH24:MI'));
+
+-- chat 11 La Famiglia
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000006, 'C011', TO_DATE('2015-03-03 14:00', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000018, 'C011', TO_DATE('2015-03-03 14:10', 'YYYY-MM-DD HH24:MI'));
+INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
+  VALUES (600000015, 'C011', TO_DATE('2015-03-03 15:45', 'YYYY-MM-DD HH24:MI'));
+
+-------------------------------------------------------
 
 --------------------------------------------------------
 -- contactos de Berto
@@ -502,123 +622,40 @@ INSERT INTO contacto (telefono, nombre, apellidos, dia, mes, usuario)
   VALUES (600000020, 'Frida', 'Fisher', NULL, NULL, 600000021);
 
 
+---------------------
+
+--------------------------------------------------------  
+-- Emails de contactos
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000004, 600000002, 'hana@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000013, 600000007, 'cleto@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000002, 600000013, 'yinuo@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000013, 600000006, 'siena@email.com');
+
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000014, 600000006, 'siena@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000013, 600000014, 'lulu@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000007, 600000013, 'yinuo@email.com');
+INSERT INTO email_contactoa (usuario, contacto, email)
+  VALUES (600000007, 600000006, 'siena@email.com');
+
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000005, 600000008, 'artix@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000015, 600000002, 'hana@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000012, 600000002, 'hana@email.com');
+INSERT INTO email_contacto (usuario, contacto, email)
+  VALUES (600000007, 600000002, 'hana@email.com');
+
+
+
 --------------------------------------------------------
--- Participacion de usuarios en chats
-
--- Chat 1 Amigos
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000001, 'C001', TO_DATE('2024-01-01 10:20', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000005, 'C001', TO_DATE('2024-01-01 10:21', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000017, 'C001', TO_DATE('2024-01-01 10:22', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000010, 'C001', TO_DATE('2024-01-01 10:23', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000008, 'C001', TO_DATE('2024-01-01 10:24', 'YYYY-MM-DD HH24:MI'));  
-  
--- chat 2 Trabajo
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000013, 'C002', TO_DATE('2024-04-10 17:10', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000007, 'C002', TO_DATE('2024-04-10 17:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000014, 'C002', TO_DATE('2024-04-11 10:25', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000006, 'C002', TO_DATE('2024-04-11 10:30', 'YYYY-MM-DD HH24:MI'));
-
--- chat 3 Familia  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000002, 'C003', TO_DATE('2017-02-01 14:50', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000011, 'C003', TO_DATE('2017-02-01 15:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000013, 'C003', TO_DATE('2017-02-01 15:40', 'YYYY-MM-DD HH24:MI'));
-  
--- chat 4 Family Group  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000004, 'C004', TO_DATE('2020-01-16 11:30', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000001, 'C004', TO_DATE('2020-01-16 12:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000009, 'C004', TO_DATE('2020-01-16 12:35', 'YYYY-MM-DD HH24:MI'));
-  
--- chat 5 Vecinos  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000004, 'C005', TO_DATE('2024-05-25 10:50', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000019, 'C005', TO_DATE('2024-05-25 10:55', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000013, 'C005', TO_DATE('2024-05-25 11:10', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000006, 'C005', TO_DATE('2024-05-26 11:35', 'YYYY-MM-DD HH24:MI'));
-  
--- chat 6 The colegas
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000006, 'C006', TO_DATE('2024-06-30 17:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000009, 'C006', TO_DATE('2024-06-30 17:17', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000013, 'C006', TO_DATE('2024-06-30 17:19', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000020, 'C006', TO_DATE('2024-06-30 17:20', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000002, 'C006', TO_DATE('2024-06-30 17:25', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000012, 'C006', TO_DATE('2024-06-30 17:26', 'YYYY-MM-DD HH24:MI'));
- 
-  
--- chat 7 Clase  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000008, 'C007', TO_DATE('2025-01-05 09:45', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000001, 'C007', TO_DATE('2025-01-05 10:00', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000015, 'C007', TO_DATE('2025-01-05 10:25', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000011, 'C007', TO_DATE('2025-01-05 10:45', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000016, 'C007', TO_DATE('2025-01-05 10:48', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000018, 'C007', TO_DATE('2025-01-05 10:59', 'YYYY-MM-DD HH24:MI'));
-
--- chat 8 Hermanos
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000009, 'C008', TO_DATE('2018-05-25 10:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000007, 'C008', TO_DATE('2018-05-25 10:20', 'YYYY-MM-DD HH24:MI'));
-
--- chat 9 Lxs mejores  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000016, 'C009', TO_DATE('2017-05-30 10:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000018, 'C009', TO_DATE('2017-05-30 10:16', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000008, 'C009', TO_DATE('2017-05-30 10:17', 'YYYY-MM-DD HH24:MI'));
-
--- chat 10 Grupo clase  
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000002, 'C010', TO_DATE('2024-09-05 16:05', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000019, 'C010', TO_DATE('2024-09-05 16:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000015, 'C010', TO_DATE('2024-09-05 16:25', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000012, 'C010', TO_DATE('2024-09-05 17:00', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000007, 'C010', TO_DATE('2024-09-05 17:10', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000004, 'C010', TO_DATE('2024-09-05 18:15', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000021, 'C010', TO_DATE('2024-09-05 18:20', 'YYYY-MM-DD HH24:MI'));
-
--- chat 11 La Famiglia
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000006, 'C011', TO_DATE('2015-03-03 14:00', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000018, 'C011', TO_DATE('2015-03-03 14:10', 'YYYY-MM-DD HH24:MI'));
-INSERT INTO participacion (usuario, chat_grupo, fecha_inicio)
-  VALUES (600000015, 'C011', TO_DATE('2015-03-03 15:45', 'YYYY-MM-DD HH24:MI'));
 
 -- columna calculada CHAT_GRUPO.miembros
 UPDATE chat_grupo C
